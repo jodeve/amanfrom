@@ -88,7 +88,7 @@ app.post("/api/login", login)
 
 app.post("/api/messages", Message.send)
 
-app.get("/(/*)?", (_, res) => {
+app.get("/*", (_, res) => {
     res.sendFile(path.join(__dirname, '../../public', 'index.html'));
 })
 
