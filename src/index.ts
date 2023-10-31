@@ -62,6 +62,10 @@ app.use(
             { url: "/api/services", method: "GET" },
             { url: "/api/images/", method: "GET" },
             { url: "/api/services/", method: "GET" },
+            { url: "/admin/login", method: "GET" },
+            { url: "/about", method: "GET" },
+            { url: "/services", method: "GET" },
+            { url: "/gallery", method: "GET" },
         ]
     })
 )
