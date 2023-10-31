@@ -3,9 +3,14 @@ import { service } from "../../models";
 
 async function index(_, res) {
 
-    let data = await service.findAll();
-    return res.status(200)
-        .json(data)
+    try {
+        let data = await service.findAll();
+        return res.status(200)
+            .json(data)
+    } catch (e) {
+        console.log(e);
+
+    }
 
 }
 

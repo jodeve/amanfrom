@@ -3,9 +3,14 @@ import { uploadBase64 } from "../lib";
 
 async function index(_, res) {
 
-    let data = await image.findAll();
-    return res.status(200)
-        .json(data)
+    try {
+        let data = await image.findAll();
+        return res.status(200)
+            .json(data)
+    } catch (e) {
+        console.log(e);
+
+    }
 
 }
 

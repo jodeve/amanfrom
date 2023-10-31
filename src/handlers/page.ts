@@ -1,12 +1,17 @@
 import { page } from "../../models";
 
 
-async function index (_, res) {
-    let data = await page.findByPk(1);
-    if (data) return res.status(200)
-        .json(JSON.parse(data.content))
-    else return res.status(404)
-        .send({ nothing: "" });
+async function index(_, res) {
+    try {
+        let data = await page.findByPk(1);
+        if (data) return res.status(200)
+            .json(JSON.parse(data.content))
+        else return res.status(404)
+            .send({ nothing: "" });
+    } catch (e) {
+        console.log(e);
+
+    }
 }
 
 async function update(req, res) {
