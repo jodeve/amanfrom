@@ -48,23 +48,23 @@ app.use(
     })
 )
 
-/*
+
 app.use(
     expressjwt({
         secret: process.env.TOKEN,
         algorithms: ["HS256"],
     }).unless({
         path: [
-            "/login",
-            { url: "/", method: "GET" },
-            { url: "/images", method: "GET" }, ,
-            { url: "/services", method: "GET" },
-            { url: "/images/", method: "GET" },
-            { url: "/services/", method: "GET" },
+            "/api/login",
+            { url: "/api", method: "GET" },
+            { url: "/api/", method: "GET" },
+            { url: "/api/images", method: "GET" }, ,
+            { url: "/api/services", method: "GET" },
+            { url: "/api/images/", method: "GET" },
+            { url: "/api/services/", method: "GET" },
         ]
     })
 )
-*/
 
 app.get("/api", Page.index)
 
