@@ -88,19 +88,8 @@ app.post("/api/login", login)
 
 app.post("/api/messages", Message.send)
 
-const index =  (_, res) => {
-    res.sendFile(path.join(__dirname, '../../public', 'index.html'));
-};
-
-app.get("/", index);
-
-app.get("/about", index);
-
-app.get("/services", index);
-
-app.get("/gallery", index);
-
-app.get("/admin/login", index);
-
+app.get("/*", (_, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'index.html'));
+});
 
 app.listen(port, () => console.log(`Server running on port: ${port}`));
