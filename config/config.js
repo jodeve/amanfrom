@@ -16,7 +16,10 @@ module.exports = {
     "dialect": "mysql"
   },
   "production": {
-    "url": process.env.DB_URL,
+    "username": "amanfrom_user",
+    "password": process.env.DB_URL,
+    "database": "amanfrom",
+    "host": process.env.DB_HOST,
     "dialect": "postgres"
   }
 }
