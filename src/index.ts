@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Response } from "express";
 import { configDotenv } from "dotenv";
 import cors from "cors";
 import mime from "mime";
@@ -53,6 +53,7 @@ app.use(
     expressjwt({
         secret: process.env.TOKEN,
         algorithms: ["HS256"],
+        credentialsRequired: false,
     }).unless({
         path: [
             "/api/login",
@@ -66,6 +67,7 @@ app.use(
             { url: "/about", method: "GET" },
             { url: "/services", method: "GET" },
             { url: "/gallery", method: "GET" },
+            { url: "/api/messages", method: "POST" },
         ]
     })
 )
@@ -85,6 +87,10 @@ app.post("/api/images", Image.store)
 app.get("/api/images", Image.index)
 
 app.post("/api/login", login)
+
+app.get("/api/user", (_, res: Response) => {
+    res.send({});
+})
 
 app.post("/api/messages", Message.send)
 

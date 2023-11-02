@@ -14,7 +14,7 @@ async function login(req, res) {
         }
     });
     if (_user && await bcrypt.compare(password, _user.password)) {
-        const token = await jwt.sign(_user.id, process.env.TOKEN);
+        const token = jwt.sign({ id: _user.id }, process.env.TOKEN, { algorithm: "HS256" });
         res.setHeader("Authorization", `Bearer ${token}`);
         return res.send({
 
