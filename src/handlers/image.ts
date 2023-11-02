@@ -21,9 +21,15 @@ async function store(req, res) {
         let _image = req.body.image;
         let croppedImage = req.body.croppedImage;
 
-        _image = uploadBase64(_image);
-        croppedImage = uploadBase64(croppedImage);
+        _image = await uploadBase64(_image);
 
+
+        croppedImage = await uploadBase64(croppedImage, true);
+
+        if (_image == "" || croppedImage == "") {
+            return res.status(500)
+                .json({})
+        }
 
         let data = await image.create({
             croppedImage,
@@ -39,7 +45,18 @@ async function store(req, res) {
     }
 }
 
+async function destroy(req, res) {
+
+    const id = req.params.id;
+
+    const data = await image.destroy({ where: { id } });;
+    return res
+        .json(data)
+
+}
+
 export default {
     store,
     index,
+    destroy,
 }

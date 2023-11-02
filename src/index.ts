@@ -10,6 +10,7 @@ import Image from "./handlers/image";
 import login from "./handlers/login";
 import Message from "./handlers/message";
 import path from "path";
+import { v2 as cloudinary } from 'cloudinary';
 
 configDotenv();
 
@@ -72,6 +73,13 @@ app.use(
     })
 )
 
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 app.get("/api", Page.index)
 
 app.put("/api", Page.update)
@@ -80,11 +88,15 @@ app.post("/api/services", Service.store)
 
 app.get("/api/services", Service.index)
 
+app.put("/api/services/:id", Service.update)
+
 app.delete("/api/services/:id", Service.destroy)
 
 app.post("/api/images", Image.store)
 
 app.get("/api/images", Image.index)
+
+app.delete("/api/images/:id", Image.destroy)
 
 app.post("/api/login", login)
 
