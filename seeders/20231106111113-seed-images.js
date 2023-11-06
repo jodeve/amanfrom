@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('People', [
+    await queryInterface.bulkInsert('images', [
       {
         "image": "https://res.cloudinary.com/do2pe6bdt/image/upload/v1699268324/fovpz03alfyaadvovd6z.jpg",
         "croppedImage": "https://res.cloudinary.com/do2pe6bdt/image/upload/v1699268324/fwbnq8n6kys7rcmw57j0.jpg",
