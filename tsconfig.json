@@ -1,18 +1,33 @@
 {
   "compilerOptions": {
-    "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    "experimentalDecorators": true /* Enable experimental support for TC39 stage 2 draft decorators. */,
-    "emitDecoratorMetadata": true /* Emit design-type metadata for decorated declarations in source files. */,
-    "module": "commonjs" /* Specify what module code is generated. */,
-    "outDir": "dist" /* Specify an output folder for all emitted files. */,
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowJs": true,
     "baseUrl": "./",
+    "paths": {
+        "components/*": ["src/components/*"],
+        "pages/*": ["src/pages/*"],
+        "contexts/*": ["src/contexts/*"],
+        "lib/*": ["src/lib/*"],
+    }
   },
-  "include": [
-    "./"
-  ],
-  "exclude": [
-  ]
+  "include": ["./"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

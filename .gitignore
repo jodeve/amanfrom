@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+dist-ssr
 *.local
 
 # Editor directories and files
@@ -21,6 +22,4 @@ dist
 *.njsproj
 *.sln
 *.sw?
-db/database.sqlite
 .env
-public/images

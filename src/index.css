@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    font-family: Dosis;
+    overflow-x: hidden;
+}
+
+p, a, li, .public-DraftEditor-content span {
+    font-size: 23px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: Poppins;
+}
+
+.section {
+    padding: 100px 10px;
+}
+
+.about-services-list {
+    list-style: none;
+    counter-reset: item;
+}
+
+.about-services {
+    counter-increment: item;
+}
+
+.about-services:before{
+    margin-right: 10px;
+    content: counter(item);
+    border-radius: 100%;
+    width: 1.8em;
+    height: 1.8em;
+    text-align: center;
+    display: inline-block;
+    border: dotted 1px blue;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+
+/* Largest devices such as desktops (1280px and up) */
+@media only screen and (min-width: 80em) {
+
+    .section {
+        padding: 180px 10px;
+    }
+
+}
