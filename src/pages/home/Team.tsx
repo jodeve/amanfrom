@@ -31,7 +31,7 @@ const Team = () => {
         >
             <div className="md:w-3/4 mx-auto mt-20" >
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid md:grid-cols-3 gap-4">
                     {
                         staff.map((mem, i) => (
                             <div
