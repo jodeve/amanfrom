@@ -30,12 +30,6 @@ const Service: FC<ServiceProps> = ({ service, i, setServices, services, }) => {
         signedIn,
     } = useAppContext();
 
-
-    const handleChangeService = (values: any) => {
-        modal.onClose();
-
-    }
-
     const onModalOpen = () => {
         if (!signedIn) return;
         modal.onOpen();

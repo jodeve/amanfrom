@@ -1,6 +1,5 @@
 import { useAppContext } from "contexts/AppContext";
 import Modal from "components/modal/Modal";
-import { ModalContext } from "components/modal/ModalContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ServiceFormImage from "./ServiceFormImage";

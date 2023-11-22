@@ -25,10 +25,6 @@ const Services = () => {
     }, [])
 
 
-    const onChangeService = () => {
-
-    }
-
     const modal = useModal();
 
     return (
