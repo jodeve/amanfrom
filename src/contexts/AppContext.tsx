@@ -23,6 +23,8 @@ export interface IAppContext {
     setServices: (services: IService[]) => void;
     gallery: IGallery[];
     setGallery: (gallery: IGallery[]) => void;
+    currentUser: any;
+    setCurrentUser: (currentUser: any) => void;
 }
 
 export const AppContext  = createContext<IAppContext>(null);

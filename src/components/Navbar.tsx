@@ -37,10 +37,27 @@ const Navbar = () => {
         signedIn,
         onSave,
         isUpdatingPage,
+        setSignedIn,
+        currentUser = { role: "" },
+        setCurrentUser,
     } = useAppContext();
 
     if (location.pathname.includes("login")) return null;
 
+    const routes = [...DATA.pages];
+
+    if (currentUser && currentUser.role.includes("Admin")) {
+        routes.push({
+            name: "Users",
+            path: "/admin/users"
+        })
+    }
+
+    const signOut = () => {
+        sessionStorage.removeItem("token");
+        setCurrentUser(null);
+        setSignedIn(false);
+    }
 
     return (
         <>
@@ -56,7 +73,7 @@ const Navbar = () => {
                     <div className="hidden md:block">
                         <ol className="flex gap-x-8">
                             {
-                                DATA.pages.map((link, i) => {
+                                routes.map((link, i) => {
 
                                     const isActive = location.pathname == link.path;
 
@@ -68,6 +85,16 @@ const Navbar = () => {
                                         </li>
                                     )
                                 })
+                            }
+                            {
+                                signedIn ?
+
+                                    <li style={{ listStyle: "none" }}>
+                                        <button onClick={signOut}>
+                                            Sign Out
+                                        </button>
+                                    </li>
+                                : null
                             }
                         </ol>
                     </div>
@@ -110,7 +137,7 @@ const Navbar = () => {
                             <div className="-my-6 divide-y divide-gray-500/10">
                                 <div className="space-y-2 py-6">
                                     {
-                                        DATA.pages.map((item, i) => {
+                                        routes.map((item, i) => {
 
                                             const isActive = location.pathname == item.path;
 
@@ -142,7 +169,7 @@ const Navbar = () => {
                                                         onSave()
                                                     }}
                                                 >
-                                                    { isUpdatingPage ? <ActivityIndicator /> : "Save" }
+                                                    {isUpdatingPage ? <ActivityIndicator /> : "Save"}
                                                 </a>
                                             )
                                             : null

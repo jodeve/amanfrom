@@ -8,6 +8,7 @@ import {
 } from "react-transition-group";
 import NotFound from 'pages/NotFound';
 import Login from 'pages/login/Login';
+import Users from 'pages/users/Users';
 
 export const routes = [
     {
@@ -31,6 +32,10 @@ export const routes = [
     {
         path: "/admin/login",
         element: Login,
+    },
+    {
+        path: "/admin/users",
+        element: Users,
     },
 ]
 

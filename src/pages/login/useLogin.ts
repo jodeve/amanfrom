@@ -20,7 +20,7 @@ const useLogin = () => {
     const query = new URLSearchParams(search);
 
     const {
-        setSignedIn,
+        setCurrentUser,
     } = useContext(AppContext);
 
     const onSubmit = async (values: LoginInput) => {
@@ -36,11 +36,11 @@ const useLogin = () => {
             });
             if (res.ok) {
                 const headers = res.headers;
-                console.log(headers);
-                
+                const body = await res.json();
                 storeToken({
                     headers: headers!,
-                    setSignedIn,
+                    setCurrentUser,
+                    body,
                 })
                 let redirect = query.get("redirect");
                 if (!redirect) redirect = "/";

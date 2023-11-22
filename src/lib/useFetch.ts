@@ -17,9 +17,9 @@ const useFetch = (
 
     const onFetch = async (method = 'get', body = undefined) => {
     
-        let host = "localhost:4000";
+        let host = "http://localhost:4000";
 
-        const apiHost = `${host}/api`;
+        const apiHost = `${host}`;
 
         const token = getToken();
         const _path = path.endsWith('/') ? path.substr(0, path.length - 1) : path;

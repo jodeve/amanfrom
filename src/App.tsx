@@ -44,6 +44,7 @@ const App = () => {
         signedIn,
         setSignedIn,
         isFetchingUser,
+        ...useUserHook
     } = useUser();
 
     const data = {
@@ -57,6 +58,7 @@ const App = () => {
         setServices,
         gallery,
         setGallery,
+        ...useUserHook
     };
 
 

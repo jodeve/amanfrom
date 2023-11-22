@@ -5,8 +5,13 @@ import { HOST } from "src/App";
 const useUser = () => {
 
     const [signedIn, setSignedIn] = useState(false);
+    const [currentUser, setCurrentUser] = useState();
 
     const [isFetchingUser, setIsFetchingUser] = useState(false);
+
+    useEffect(() => {
+        if(currentUser) setSignedIn(true);
+    }, [currentUser]);
 
     const onFetchUser = async () => {
         try {
@@ -20,7 +25,8 @@ const useUser = () => {
                 },
             })
             if(res.ok){
-                setSignedIn(true);
+                const body = await res.json();                
+                setCurrentUser({...body});
             }
         } catch (error) {
 
@@ -38,6 +44,8 @@ const useUser = () => {
         isFetchingUser,
         signedIn,
         setSignedIn,
+        currentUser,
+        setCurrentUser,
     }
 }
 
