@@ -6,6 +6,7 @@ import { Dialog } from '@headlessui/react'
 import { useAppContext } from "contexts/AppContext";
 import PrimaryButton from "./PrimaryButton";
 import ActivityIndicator from "./ActivityIndicator";
+import OutlinedButton from "./OutlinedButton";
 
 const Navbar = () => {
 
@@ -86,16 +87,6 @@ const Navbar = () => {
                                     )
                                 })
                             }
-                            {
-                                signedIn ?
-
-                                    <li style={{ listStyle: "none" }}>
-                                        <button onClick={signOut}>
-                                            Sign Out
-                                        </button>
-                                    </li>
-                                : null
-                            }
                         </ol>
                     </div>
                     <div className="md:flex-1 flex justify-end">
@@ -106,12 +97,18 @@ const Navbar = () => {
                             {
                                 signedIn ?
                                     (
-                                        <PrimaryButton
-                                            onClick={onSave}
-                                            isLoading={isUpdatingPage}
-                                        >
-                                            Save
-                                        </PrimaryButton>
+                                        <div className="flex gap-4">
+                                            <PrimaryButton
+                                                onClick={onSave}
+                                                isLoading={isUpdatingPage}
+                                            >
+                                                Save
+                                            </PrimaryButton>
+
+                                            <OutlinedButton onClick={signOut}>
+                                                Sign Out
+                                            </OutlinedButton>
+                                        </div>
                                     )
                                     : null
                             }
@@ -161,16 +158,27 @@ const Navbar = () => {
                                     {
                                         signedIn ?
                                             (
-                                                <a
-                                                    href="#"
-                                                    className="-mx-3 block px-3 py-2 hover:bg-gray-50"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        onSave()
-                                                    }}
-                                                >
-                                                    {isUpdatingPage ? <ActivityIndicator /> : "Save"}
-                                                </a>
+                                                <>
+                                                    <a
+                                                        href="#"
+                                                        className="-mx-3 block px-3 py-2 hover:bg-gray-50"
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            onSave()
+                                                        }}
+                                                    >
+                                                        {isUpdatingPage ? <ActivityIndicator /> : "Save"}
+                                                    </a>
+
+
+
+                                                    <li className="-mx-3 block px-3 py-2 hover:bg-gray-50">
+                                                        <button onClick={signOut}>
+                                                            Sign Out
+                                                        </button>
+                                                    </li>
+                                                </>
+
                                             )
                                             : null
                                     }

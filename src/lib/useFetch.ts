@@ -17,7 +17,7 @@ const useFetch = (
 
     const onFetch = async (method = 'get', body = undefined) => {
     
-        let host = "http://localhost:4000";
+        let host = import.meta.env.VITE_API_HOST;
 
         const apiHost = `${host}`;
 
