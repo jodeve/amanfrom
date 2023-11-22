@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import PrimaryButton from "components/PrimaryButton";
 import useFetch from "lib/useFetch";
 import { useFormik } from "formik";
@@ -54,10 +54,6 @@ export const UserForm: FC<TableFormProps> = ({
     rows,
     setRows,
 }) => {
-
-    const [asyncErrors, setAsyncErrors] = useState({
-
-    });
 
     let onResetForm: () => void;
 
