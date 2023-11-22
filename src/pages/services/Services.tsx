@@ -54,15 +54,18 @@ const Services = () => {
                         </div>
                         :
                         <>
-                            {
-                                services.map((service, i) => <Service
-                                    i={i}
-                                    key={i}
-                                    service={service}
-                                    setServices={setServices}
-                                    services={services}
-                                />)
-                            }
+                            <div className="grid grid-cols-3 gap-4">
+                                {
+                                    services.map((service, i) => <Service
+                                        i={i}
+                                        key={i}
+                                        service={service}
+                                        setServices={setServices}
+                                        services={services}
+                                    />)
+                                }
+
+                            </div>
                         </>
                 }
             </div>

@@ -39,22 +39,27 @@ const Service: FC<ServiceProps> = ({ service, i, setServices, services, }) => {
         <div
             className={
                 classNames(
-                    "grid md:grid-cols-2 gap-10 mt-20",
+                    //"grid md:grid-cols-2 gap-10 mt-20",
+                    "mt-20"
                 )
             }
-            data-aos={i % 2 == 0 ? "fade-left" : "fade-right"}
+            //data-aos={i % 2 == 0 ? "fade-left" : "fade-right"}
+            data-aos={"fade-down"}
             data-aos-delay={i * 800}
             data-aos-duration="1000"
         >
+            <div>
+                <Img src={service.image} alt="" className="max-w-100 height-auto" />
+            </div>
             <div
                 className={
                     classNames(
-                        i % 2 == 0 ? "md:order-1" : "",
-                        "flex flex-col justify-between"
+                        //i % 2 == 0 ? "md:order-1" : "",
+                        //"flex flex-col justify-between"
                     )
                 }
             >
-                <div className="">
+                <div className="mt-4">
                     <h3 className="font-bold text-3xl mb-2">
                         {service.name}
                     </h3>
@@ -62,16 +67,13 @@ const Service: FC<ServiceProps> = ({ service, i, setServices, services, }) => {
                 </div>
                 {
                     signedIn ?
-                        <div>
+                        <div className="mt-4">
                             <OutlinedButton onClick={onModalOpen}>
                                 Edit
                             </OutlinedButton>
                         </div>
                         : null
                 }
-            </div>
-            <div>
-                <Img src={service.image} alt="" />
             </div>
             <ModalContext.Provider
                 value={modal}
