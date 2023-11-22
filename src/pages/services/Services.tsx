@@ -2,58 +2,34 @@ import Title from "components/Title"
 import { useAppContext } from "contexts/AppContext";
 import Service from "./Service";
 import { useEffect, useState } from "react";
+import useFetch from "lib/useFetch";
+import OutlinedButton from "components/OutlinedButton";
+import useModal from "components/modal/useModal";
+import { ModalContext } from "components/modal/ModalContext";
+import ServiceForm from "./ServiceForm";
 
 const Services = () => {
 
     const {
-        DATA,
-        onChange,
-    } = useAppContext();
+        signedIn
+    } = useAppContext()
 
     const [services, setServices] = useState([]);
 
-    const serviceKeys = [
-        "serviceOne",
-        "serviceTwo",
-        "serviceThree",
-    ];
+    const {
+        onFetch
+    } = useFetch("/api/servicesm", setServices);
 
     useEffect(() => {
-        if (!DATA.servicesS) {
-            DATA.servicesS = {
-                serviceOne: {
-                    name: "",
-                    image: "",
-                    description: "",
-                },
-                serviceTwo: {
-                    name: "",
-                    image: "",
-                    description: "",
-                },
-                serviceThree: {
-                    name: "",
-                    image: "",
-                    description: "",
-                }
-            }
-        }
-
-        let servicesS = DATA.servicesS;
+        onFetch()
+    }, [])
 
 
-        setServices(Object.values(servicesS));
+    const onChangeService = () => {
 
-
-    }, [DATA])
-
-
-    const onChangeservice = ({ key, value }) => {
-        DATA.servicesS[key] = {
-            ...value,
-        };
-        onChange({ target: { value: DATA.servicesS, name: "serviceS", } })
     }
+
+    const modal = useModal();
 
     return (
         <div className="pt-20">
@@ -61,6 +37,15 @@ const Services = () => {
                 <Title>
                     Services
                 </Title>
+                {
+                    signedIn ?
+                        <OutlinedButton
+                            onClick={modal.onOpen}
+                        >
+                            Add Service
+                        </OutlinedButton>
+                        : null
+                }
             </div>
             <div className="md:w-3/4 mx-auto my-20 px-5">
                 {
@@ -68,11 +53,21 @@ const Services = () => {
                         i={i}
                         key={i}
                         service={service}
-                        onChangeService={onChangeservice}
-                        kKey={serviceKeys[i]}
+                        setServices={setServices}
+                        services={services}
                     />)
                 }
             </div>
+            <ModalContext.Provider value={modal}>
+                <ServiceForm 
+                    setServices={setServices}
+                    services={services}
+                    path={`/api/servicesm`}
+                    i={null}
+                    service={null}
+                    onClose={modal.onClose}
+                />
+            </ModalContext.Provider>
         </div>
     )
 }

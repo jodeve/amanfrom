@@ -6,19 +6,21 @@ import useModal from "components/modal/useModal";
 import ServiceForm from "./ServiceForm";
 import useAos from "src/hooks/useAos";
 import OutlinedButton from "components/OutlinedButton";
+import { ModalContext } from "components/modal/ModalContext";
 
 export interface ServiceProps {
     service: {
+        id: number;
         name: string;
         image: string;
         description: string;
     };
-    onChangeService: ({ key, value }: { key: string; value: any; }) => void;
     i: number;
-    kKey: string;
+    setServices: any;
+    services: any;
 }
 
-const Service: FC<ServiceProps> = ({ service, onChangeService, i, kKey, }) => {
+const Service: FC<ServiceProps> = ({ service, i, setServices, services, }) => {
 
     useAos({});
 
@@ -31,11 +33,7 @@ const Service: FC<ServiceProps> = ({ service, onChangeService, i, kKey, }) => {
 
     const handleChangeService = (values: any) => {
         modal.onClose();
-        onChangeService({
-            key: kKey, value: {
-                ...values,
-            }
-        })
+
     }
 
     const onModalOpen = () => {
@@ -64,9 +62,9 @@ const Service: FC<ServiceProps> = ({ service, onChangeService, i, kKey, }) => {
             >
                 <div className="">
                     <h3 className="font-bold text-3xl mb-2">
-                        {service.name || "Service Name"}
+                        {service.name}
                     </h3>
-                    <p>{service.description || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid itaque similique vitae dicta. Iure illo consectetur deleniti provident eligendi vel animi, culpa sapiente exercitationem sunt praesentium, enim eaque quidem! Aliquam!"}</p>
+                    <p>{service.description}</p>
                 </div>
                 {
                     signedIn ?
@@ -75,17 +73,24 @@ const Service: FC<ServiceProps> = ({ service, onChangeService, i, kKey, }) => {
                                 Edit
                             </OutlinedButton>
                         </div>
-                    : null
+                        : null
                 }
             </div>
             <div>
-                <Img src={service.image || `/imgs/1.jpeg`} alt="" />
+                <Img src={service.image} alt="" />
             </div>
-            <ServiceForm
-                modal={modal}
-                handleChangeService={handleChangeService}
-                service={service}
-            />
+            <ModalContext.Provider
+                value={modal}
+            >
+                <ServiceForm
+                    i={i}
+                    service={service}
+                    setServices={setServices}
+                    services={services}
+                    path={`/api/servicesm/${service.id}`}
+                    onClose={modal.onClose}
+                />
+            </ModalContext.Provider>
         </div>
     )
 }
