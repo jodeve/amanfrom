@@ -7,6 +7,7 @@ import OutlinedButton from "components/OutlinedButton";
 import useModal from "components/modal/useModal";
 import { ModalContext } from "components/modal/ModalContext";
 import ServiceForm from "./ServiceForm";
+import ActivityIndicator from "components/ActivityIndicator";
 
 const Services = () => {
 
@@ -17,15 +18,17 @@ const Services = () => {
     const [services, setServices] = useState([]);
 
     const {
-        onFetch
+        onFetch,
+        isFetching,
     } = useFetch("/api/servicesm", setServices);
 
     useEffect(() => {
         onFetch()
     }, [])
 
-
     const modal = useModal();
+
+
 
     return (
         <div className="pt-20">
@@ -45,17 +48,26 @@ const Services = () => {
             </div>
             <div className="md:w-3/4 mx-auto my-20 px-5">
                 {
-                    services.map((service, i) => <Service
-                        i={i}
-                        key={i}
-                        service={service}
-                        setServices={setServices}
-                        services={services}
-                    />)
+                    isFetching ?
+                        <div className="flex justify-center items-center">
+                            <ActivityIndicator />
+                        </div>
+                        :
+                        <>
+                            {
+                                services.map((service, i) => <Service
+                                    i={i}
+                                    key={i}
+                                    service={service}
+                                    setServices={setServices}
+                                    services={services}
+                                />)
+                            }
+                        </>
                 }
             </div>
             <ModalContext.Provider value={modal}>
-                <ServiceForm 
+                <ServiceForm
                     setServices={setServices}
                     services={services}
                     path={`/api/servicesm`}
