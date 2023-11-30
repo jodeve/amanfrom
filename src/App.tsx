@@ -17,7 +17,7 @@ const host = import.meta.env.VITE_API_HOST;
 export const HOST = `${host}/api`;
 
 const App = () => {
- 
+
     const {
         state,
         onChange,
@@ -62,7 +62,11 @@ const App = () => {
     };
 
 
-    if(isFetchingImages || isFetchingUser || isFetchingPage || isFetchingServices)  return(
+
+
+
+
+    if (isFetchingImages || isFetchingUser || isFetchingPage || isFetchingServices) return (
         <div className="h-screen w-screen flex items-center justify-center">
             <ActivityIndicator />
         </div>

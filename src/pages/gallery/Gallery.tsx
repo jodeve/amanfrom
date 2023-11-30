@@ -10,6 +10,9 @@ import { HOST } from "src/App";
 import useAos from "src/hooks/useAos";
 import GalleryImage from "./GalleryImage";
 import { getToken } from "lib/getToken";
+import useGallery from "src/hooks/useGallery";
+import { ImageContext } from "contexts/ImageContext";
+import ImgsViewer from "react-images-viewer";
 
 const Gallery = () => {
 
@@ -37,58 +40,82 @@ const Gallery = () => {
                 },
                 body: JSON.stringify(values)
             })
-            if(res.ok){
+            if (res.ok) {
                 const body = await res.json();
                 gallery.push(body);
-                setGallery([ ...gallery ]);
+                setGallery([...gallery]);
                 modal.onClose();
             }
         } catch (error) {
-            
-        }finally{
+
+        } finally {
             setIsFetching(false);
         }
     }
 
+    const {
+        onSetCurrentImage,
+        currentImage,
+        isOpenImage,
+        onClickPrev,
+        onClickNext,
+        onClose,
+    } = useGallery();
+
     return (
-        <div className="pt-20">
-            <div className="bg-blue-200 p-10 md:p-20 text-center">
-                <Title>
-                    Gallery
-                </Title>
-                {
-                    signedIn ?
-                        <OutlinedButton
-                            onClick={modal.onOpen}
-                        >
-                            Upload Image
-                        </OutlinedButton>
-                        : null
-                }
-            </div>
-            <div className="md:w-3/4 mx-auto my-20">
-                <div className="md:columns-3 gap-4 px-2 md-:px-0">
+        <ImageContext.Provider
+            value={{
+                onSetCurrentImage,
+            }}
+        >
+            <ImgsViewer
+                imgs={gallery.map((i) => ({ src: i.image }))}
+                currImg={currentImage}
+                isOpen={isOpenImage}
+                onClickPrev={onClickPrev}
+                onClickNext={onClickNext}
+                onClose={onClose}
+            />
+            <div className="pt-20">
+                <div className="bg-blue-200 p-10 md:p-20 text-center">
+                    <Title>
+                        Gallery
+                    </Title>
                     {
-                        gallery.map((image, i) => {
-                            return (
-                                <GalleryImage 
-                                    i={i}
-                                    key={i}
-                                    image={image}
-                                />
-                            )
-                        })}
+                        signedIn ?
+                            <OutlinedButton
+                                onClick={modal.onOpen}
+                            >
+                                Upload Image
+                            </OutlinedButton>
+                            : null
+                    }
                 </div>
+                <div className="md:w-3/4 mx-auto my-20">
+                    <div className="md:columns-3 gap-4 px-2 md-:px-0">
+                        {
+                            gallery.map((image, i) => {
+                                return (
+                                    <GalleryImage
+                                        i={i}
+                                        key={i}
+                                        image={image}
+                                    />
+                                )
+                            })}
+                    </div>
+                </div>
+                <ModalContext.Provider value={modal}>
+                    <Modal>
+                        <MediaInput
+                            onImageChange={onUploadImage}
+                            isFetching={isFetching}
+                        />
+                    </Modal>
+                </ModalContext.Provider>
             </div>
-            <ModalContext.Provider value={modal}>
-                <Modal>
-                    <MediaInput 
-                        onImageChange={onUploadImage}
-                        isFetching={isFetching}
-                    />
-                </Modal>
-            </ModalContext.Provider>
-        </div>
+        </ImageContext.Provider>
+
     )
 }
 

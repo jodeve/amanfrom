@@ -2,8 +2,9 @@ import Confirm from "components/Confirm";
 import Img from "components/Img";
 import useModal from "components/modal/useModal";
 import { useAppContext } from "contexts/AppContext";
+import { ImageContext } from "contexts/ImageContext";
 import { getToken } from "lib/getToken";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { HOST } from "src/App";
 
 const GalleryImage = ({ image, i }) => {
@@ -13,6 +14,10 @@ const GalleryImage = ({ image, i }) => {
         setGallery,
         signedIn,
     } = useAppContext();
+
+    const {
+        onSetCurrentImage,
+    } = useContext(ImageContext);
 
     const deleteModal = useModal();
 
@@ -51,6 +56,7 @@ const GalleryImage = ({ image, i }) => {
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
                 }}
+                onClick={() => onSetCurrentImage(i)}
             >
                 {
                     signedIn ?
