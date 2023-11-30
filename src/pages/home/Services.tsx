@@ -1,6 +1,5 @@
 import OutlinedButton from "components/OutlinedButton";
 import Section from "components/Section";
-import { useAppContext } from "contexts/AppContext";
 import useFetch from "lib/useFetch";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -42,7 +41,6 @@ const Services = () => {
 
     const {
         onFetch,
-        isFetching,
     } = useFetch("/api/servicesm", (body) => setServices(body.slice(0, 3)));
 
     useEffect(() => {
