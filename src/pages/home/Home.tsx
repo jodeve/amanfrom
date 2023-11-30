@@ -21,11 +21,13 @@ const Home = () => {
                 scrollTo,
             }}
         >
-            <Header />
-            <Services />
-            <Gallery />
-            <Team />
-            <GetInTouch />
+            <div className="relative">
+                <Header />
+                <Services />
+                <Gallery />
+                <Team />
+                <GetInTouch />
+            </div>
         </HomeContext.Provider>
     )
 }
