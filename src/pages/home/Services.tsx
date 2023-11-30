@@ -1,6 +1,8 @@
 import OutlinedButton from "components/OutlinedButton";
 import Section from "components/Section";
 import { useAppContext } from "contexts/AppContext";
+import useFetch from "lib/useFetch";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const Service = ({ service, i }) => {
@@ -36,13 +38,16 @@ const Service = ({ service, i }) => {
 
 const Services = () => {
 
+    const [services, setServices] = useState([]);
+
     const {
-        DATA,
-    } = useAppContext();
+        onFetch,
+        isFetching,
+    } = useFetch("/api/servicesm", (body) => setServices(body.slice(0, 3)));
 
-    const services = Object.values(DATA.servicesS);
-
-    const _services = [...services];
+    useEffect(() => {
+        onFetch()
+    }, [])
 
     return (
         <Section
@@ -52,7 +57,7 @@ const Services = () => {
             <div className="md:w-3/4 mx-auto mt-20">
                 <div className="grid md:grid-cols-3 gap-4">
                     {
-                        _services.map((service, i) =>
+                        services.map((service, i) =>
                             <Service
                                 i={i}
                                 key={i}
